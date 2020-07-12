@@ -19,9 +19,6 @@ Resources:
         - 
           AttributeName: "pagename"
           KeyType: "HASH"
-        - 
-          AttributeName: "counter"
-          KeyType: "RANGE"
       
       TableName: "visitor_counter"
       ProvisionedThroughput: 
