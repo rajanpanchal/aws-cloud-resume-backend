@@ -31,7 +31,7 @@ Resources:
   CloudResumeFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: pythonscripts.zip
+      CodeUri: Lambda/
       Handler: getcounterscript.getCounter
       Runtime: python2.7
       Policies:
