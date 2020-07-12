@@ -1,0 +1,47 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  My SAM App
+
+Resources:
+  myDynamoDBTable: 
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      AttributeDefinitions: 
+        - 
+          AttributeName: "pagename"
+          AttributeType: "S"
+        - 
+          AttributeName: "counter"
+          AttributeType: "N"
+       
+      KeySchema: 
+        - 
+          AttributeName: "pagename"
+          KeyType: "HASH"
+        - 
+          AttributeName: "counter"
+          KeyType: "RANGE"
+      
+      TableName: "visitor_counter"
+      ProvisionedThroughput: 
+            ReadCapacityUnits: "5"
+            WriteCapacityUnits: "5"
+
+  CloudResumeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri:
+       Bucket: rajanpanchalcloudresumebucket
+       key: getcounterscript.py
+      Handler: getcounterscript.getCounter
+      Runtime: python2.7
+      Policies:
+      # Give DynamoDB Full Access to your Lambda Function
+      - AmazonDynamoDBFullAccess
+      Events:
+        getCounter:
+          Type: Api
+          Properties:
+            Path: /getVisitorCounter
+            Method: get
