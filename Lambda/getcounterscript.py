@@ -46,7 +46,17 @@ def getCounter(event, context):
     #using json.loads will turn your data into a python dictionary
     resp_dict = json.loads(json_str)
     print (resp_dict.get('counter'))
-    return resp_dict.get('counter')
+    return {
+        'statusCode': 200,
+        'headers': {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
+        'body': 
+            json_str
+        ,
+        "isBase64Encoded": False
+    }
 
 if __name__ == "__main__":
     getCounter()
