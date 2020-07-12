@@ -11,9 +11,6 @@ Resources:
         - 
           AttributeName: "pagename"
           AttributeType: "S"
-        - 
-          AttributeName: "counter"
-          AttributeType: "N"
        
       KeySchema: 
         - 
