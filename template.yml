@@ -22,6 +22,14 @@ Resources:
             ReadCapacityUnits: "5"
             WriteCapacityUnits: "5"
 
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors:
+        AllowMethods: "'GET'"
+        AllowHeaders: "'X-Forwarded-For'"
+        AllowOrigin: "'www.rajanpanchal.com'"
   CloudResumeFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -37,3 +45,4 @@ Resources:
           Properties:
             Path: /getVisitorCounter
             Method: get
+            RestApiId: !Ref MyApi
