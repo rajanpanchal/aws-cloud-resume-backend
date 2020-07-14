@@ -56,3 +56,5 @@ Resources:
             Path: /getVisitorCounter
             Method: get
             RestApiId: !Ref ApiGatewayApi
+            Auth:
+              ApiKeyRequired: true
