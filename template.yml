@@ -45,4 +45,4 @@ Resources:
           Properties:
             Path: /getVisitorCounter
             Method: get
-            RestApiId: !Ref MyApi
+            RestApiId: !Ref ApiGatewayApi
