@@ -30,8 +30,6 @@ Resources:
         AllowMethods: "'GET'"
         AllowHeaders: "'X-Forwarded-For'"
         AllowOrigin: "'www.rajanpanchal.com'"
-    Auth:
-     ApiKeyRequired: true
      UsagePlan:
       CreateUsagePlan: PER_API
       Description: Usage plan for this API
@@ -57,3 +55,5 @@ Resources:
             Path: /getVisitorCounter
             Method: get
             RestApiId: !Ref ApiGatewayApi
+            Auth:
+              ApiKeyRequired: true
