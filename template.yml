@@ -30,6 +30,16 @@ Resources:
         AllowMethods: "'GET'"
         AllowHeaders: "'X-Forwarded-For'"
         AllowOrigin: "'www.rajanpanchal.com'"
+    Auth:
+     UsagePlan:
+      CreateUsagePlan: PER_API
+      Description: Usage plan for this API
+      Quota:
+       Limit: 500
+       Period: MONTH
+      Throttle:
+       BurstLimit: 100
+       RateLimit: 50
   CloudResumeFunction:
     Type: AWS::Serverless::Function
     Properties:
