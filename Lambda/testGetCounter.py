@@ -55,7 +55,6 @@ class TestDynamoDB(unittest.TestCase):
     def test_getCounter(self):
         value1 = getCounter(self.event, self.context);
         print(value1)
-        self.assertTrue(value1 > 0);
         self.assertEqual(value1, 1);
 
        
