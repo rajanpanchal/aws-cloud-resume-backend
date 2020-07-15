@@ -1,7 +1,7 @@
 
 from getcounterscript import *
 
-import unittest  
+import unittest
 import boto3
 import botocore
 from moto import mock_dynamodb2
@@ -54,10 +54,11 @@ class TestDynamoDB(unittest.TestCase):
        
     def test_getCounter(self):
         value1 = getCounter(self.event, self.context);
-        print(value1)
-        self.assertEqual(value1, 1);
-
-       
+        json_str =  json.dumps(value1, cls=DecimalEncoder)
+        resp_dict = json.loads(json_str)
+        json_str2 = json.loads(resp_dict['body'])
+        self.assertTrue(int(json_str2['counter']) > 0);
+        self.assertEqual(int(json_str2['counter']), 1);
 
 
 if __name__ == '__main__':
