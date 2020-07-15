@@ -31,5 +31,5 @@ jobs:
     - name: Test with unittest
       run: |
         ls
-        cd home/runner/work/aws-cloud-resume-backend/aws-cloud-resume-backend/Lambda/
+        cd Lambda/
         python testGetCounter.py
