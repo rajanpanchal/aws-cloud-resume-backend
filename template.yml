@@ -45,7 +45,7 @@ Resources:
     Properties:
       CodeUri: Lambda/
       Handler: getcounterscript.getCounter
-      Runtime: python2.7
+      Runtime: python3.8
       Policies:
       # Give DynamoDB Full Access to your Lambda Function
       - AmazonDynamoDBFullAccess
