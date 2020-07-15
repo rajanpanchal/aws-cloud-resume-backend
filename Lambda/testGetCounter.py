@@ -1,7 +1,7 @@
 
 from getcounterscript import *
 
-import unittest 
+import unittest  
 import boto3
 import botocore
 from moto import mock_dynamodb2
