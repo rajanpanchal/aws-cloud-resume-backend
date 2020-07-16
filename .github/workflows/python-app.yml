@@ -39,6 +39,7 @@ jobs:
         cd Lambda/
         python testGetCounter.py
         cd ..
+        ls
     - name: SAM Build
       uses: youyo/aws-sam-action/python3.8@master
       with:
