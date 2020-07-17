@@ -53,7 +53,7 @@ def getCounter(event, context):
             'Access-Control-Allow-Origin': '*'
         },
         'body': 
-            json_str
+            resp_dict.get('counter')
         ,
         "isBase64Encoded": False
     }
