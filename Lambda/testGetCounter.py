@@ -56,9 +56,8 @@ class TestDynamoDB(unittest.TestCase):
         value1 = getCounter(self.event, self.context);
         json_str =  json.dumps(value1, cls=DecimalEncoder)
         resp_dict = json.loads(json_str)
-        json_str2 = json.loads(resp_dict['body'])
-        self.assertTrue(int(json_str2['counter']) > 0);
-        self.assertEqual(int(json_str2['counter']), 1);
+         self.assertTrue(int(resp_dict['body']) > 0);
+        self.assertEqual(int(resp_dict['body']), 1);
 
 
 if __name__ == '__main__':
