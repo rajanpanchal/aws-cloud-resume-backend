@@ -23,7 +23,7 @@ class TestDynamoDB(unittest.TestCase):
             raise EnvironmentError(err)
         
         table_name = 'visitor_counter'
-        dynamodb = boto3.resource('dynamodb', 'us-east-2')
+        dynamodb = boto3.resource('dynamodb', 'us-east-1')
 
         table = dynamodb.create_table(
             TableName=table_name,
