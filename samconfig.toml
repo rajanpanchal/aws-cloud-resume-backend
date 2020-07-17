@@ -5,6 +5,6 @@ version = 0.1
 stack_name = "cloud-resume"
 s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1j9lkswgn14da"
 s3_prefix = "cloud-resume"
-region = "us-east-2"
+region = "us-east-1"
 capabilities = "CAPABILITY_IAM"
 
