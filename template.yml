@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  My SAM App
+  Cloud Resume App
 
 Resources:
   myDynamoDBTable: 
@@ -26,10 +26,6 @@ Resources:
     Type: AWS::Serverless::Api
     Properties:
       StageName: Prod
-      Cors:
-        AllowMethods: "'GET'"
-        AllowHeaders: "'X-Forwarded-For'"
-        AllowOrigin: "'www.rajanpanchal.com'"
     Auth:
      UsagePlan:
       CreateUsagePlan: PER_API
@@ -56,4 +52,62 @@ Resources:
             Path: /getVisitorCounter
             Method: get
             RestApiId: !Ref ApiGatewayApi
+  cloudfrontoriginaccessidentity:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: This is origin access identity
+  myDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Origins:
+        - DomainName: rajanpanchal.net.s3.amazonaws.com
+          Id: myS3Origin
+          S3OriginConfig:
+            OriginAccessIdentity: !Join [ "", [ "origin-access-identity/cloudfront/", !Ref cloudfrontoriginaccessidentity ] ]
+        Enabled: 'true'
+        Comment: Some comment
+        DefaultRootObject: index.html
+        Aliases:
+        - rajanpanchal.net
+        - www.rajanpanchal.net
+        DefaultCacheBehavior:
+          AllowedMethods:
+          - GET
+          - HEAD
+          - OPTIONS
+          TargetOriginId: myS3Origin
+          ForwardedValues:
+            QueryString: 'false'
+            Cookies:
+              Forward: none
+          ViewerProtocolPolicy: redirect-to-https
+          DefaultTTL: 60
+          MaxTTL: 120
+          MinTTL: 30
+        PriceClass: PriceClass_200
+        ViewerCertificate:
+           AcmCertificateArn: arn:aws:acm:us-east-1:040484382121:certificate/5b061857-8298-47c2-a315-f20ce83402eb
+           SslSupportMethod: sni-only
+  CFDNSOne:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      HostedZoneId: Z10235982M6XC1GZQT9R0
+      RecordSets:
+        - Name: rajanpanchal.net
+          Type: A
+          AliasTarget:
+            HostedZoneId: Z2FDTNDATAQYW2
+            DNSName: !GetAtt myDistribution.DomainName
+  CFDNSTwo:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      HostedZoneId: Z10235982M6XC1GZQT9R0
+      RecordSets:
+        - Name: www.rajanpanchal.net
+          Type: A
+          AliasTarget:
+            HostedZoneId: Z2FDTNDATAQYW2
+            DNSName: !GetAtt myDistribution.DomainName
     
