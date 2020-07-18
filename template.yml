@@ -52,6 +52,30 @@ Resources:
             Path: /getVisitorCounter
             Method: get
             RestApiId: !Ref ApiGatewayApi
+  MyDomainName:
+   Type: 'AWS::ApiGateway::DomainName'
+   Properties:
+    DomainName: api.rajanpanchal.net
+    EndpointConfiguration:
+     Types: 
+      - REGIONAL
+    RegionalCertificateArn: arn:aws:acm:us-east-1:040484382121:certificate/5b061857-8298-47c2-a315-f20ce83402eb
+
+  myMapping:
+   Type: 'AWS::ApiGateway::BasePathMapping'
+   Properties:
+     DomainName: !Ref MyDomainName
+     RestApiId: !Ref ApiGatewayApi
+  apiDNS:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      HostedZoneId: Z10235982M6XC1GZQT9R0
+      RecordSets:
+        - Name: api.rajanpanchal.net
+          Type: A
+          AliasTarget:
+            HostedZoneId: !GetAtt MyDomainName.RegionalHostedZoneId
+            DNSName: !GetAtt MyDomainName.RegionalDomainName          
   cloudfrontoriginaccessidentity:
     Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
     Properties:
